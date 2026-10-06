@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { motion } from "motion/react";
-import { Download, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft, Download } from "lucide-react";
+import { motion } from "motion/react";
+import Link from "next/link";
 import ResumeDoodle from "./resume-doodle";
 
-// Drop the compiled PDF here: frontend/public/Naresh_Khatri_Resume.pdf
-const RESUME_PATH = "/Naresh_Khatri_Resume.pdf";
+// Drop the compiled PDF here: frontend/public/Samruddhi_Badgujar_resume.pdf
+const RESUME_PATH = "/Samruddhi_Badgujar_resume.pdf";
 
 export default function ResumeView() {
   return (
@@ -60,7 +59,7 @@ export default function ResumeView() {
         >
           <ResumeDoodle
             src={`${RESUME_PATH}#toolbar=0&navpanes=0&view=FitH`}
-            title="Naresh Khatri — Résumé"
+            title="Samruddhi Badgujar — Résumé"
           />
         </motion.div>
       </div>

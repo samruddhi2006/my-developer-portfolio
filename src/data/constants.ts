@@ -1,31 +1,33 @@
-// thoda zada ts ho gya idhar
 export enum SkillNames {
-  JS = "js",
-  TS = "ts",
+  JAVA = "java",
+  PYTHON = "python",
+  JAVASCRIPT = "javascript",
+  TYPESCRIPT = "typescript",
   HTML = "html",
   CSS = "css",
   REACT = "react",
-  VUE = "vue",
-  NEXTJS = "nextjs",
-  TAILWIND = "tailwind",
+  SPRING_BOOT = "spring-boot",
+  DJANGO = "django",
+  FASTAPI = "fastapi",
   NODEJS = "nodejs",
   EXPRESS = "express",
   POSTGRES = "postgres",
+  MYSQL = "mysql",
   MONGODB = "mongodb",
+  SQLALCHEMY = "sqlalchemy",
+  JPA = "jpa",
+  HIBERNATE = "hibernate",
   GIT = "git",
   GITHUB = "github",
-  PRETTIER = "prettier",
-  NPM = "npm",
-  FIREBASE = "firebase",
-  WORDPRESS = "wordpress",
   LINUX = "linux",
+  MAVEN = "maven",
   DOCKER = "docker",
-  NGINX = "nginx",
-  AWS = "aws",
-  GCP = "gcp",
-  VIM = "vim",
-  VERCEL = "vercel",
+  POSTMAN = "postman",
+  FIREBASE = "firebase",
+  LANGGRAPH = "langgraph",
+  AI_ML = "ai-ml",
 }
+
 export type Skill = {
   id: number;
   name: string;
@@ -34,214 +36,276 @@ export type Skill = {
   color: string;
   icon: string;
 };
+
 export const SKILLS: Record<SkillNames, Skill> = {
-  [SkillNames.JS]: {
+  [SkillNames.JAVA]: {
     id: 1,
-    name: "js",
+    name: "java",
+    label: "Java",
+    shortDescription:
+      "My primary language for building backend systems, APIs, and distributed applications.",
+    color: "#f89820",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+  },
+
+  [SkillNames.PYTHON]: {
+    id: 2,
+    name: "python",
+    label: "Python",
+    shortDescription:
+      "Used for backend services, automation, data processing, and AI/ML applications.",
+    color: "#3776ab",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+
+  [SkillNames.JAVASCRIPT]: {
+    id: 3,
+    name: "javascript",
     label: "JavaScript",
-    shortDescription: "yeeting code into the DOM since '95, no cap! 💯🚀",
-    color: "#f0db4f",
+    shortDescription:
+      "Building interactive web applications and full-stack JavaScript systems.",
+    color: "#f7df1e",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   },
-  [SkillNames.TS]: {
-    id: 2,
-    name: "ts",
+
+  [SkillNames.TYPESCRIPT]: {
+    id: 4,
+    name: "typescript",
     label: "TypeScript",
     shortDescription:
-      "JavaScript's overachieving cousin who's always flexing 💯🔒",
-    color: "#007acc",
+      "Typed JavaScript for building maintainable frontend and full-stack applications.",
+    color: "#3178c6",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   },
+
   [SkillNames.HTML]: {
-    id: 3,
+    id: 5,
     name: "html",
     label: "HTML",
-    shortDescription: "the internet's granddad,  still bussin' fr fr! 💀🔥",
-    color: "#e34c26",
+    shortDescription:
+      "Semantic structure and accessible foundations for the web.",
+    color: "#e34f26",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
   },
+
   [SkillNames.CSS]: {
-    id: 4,
+    id: 6,
     name: "css",
     label: "CSS",
-    shortDescription: "styling with the ultimate drip, no cap 💁‍♂️🔥",
-    color: "#563d7c",
+    shortDescription:
+      "Responsive interfaces, visual systems, animations, and polished interactions.",
+    color: "#1572b6",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
   },
+
   [SkillNames.REACT]: {
-    id: 5,
+    id: 7,
     name: "react",
     label: "React",
-    shortDescription: `"use using" 
-using use = useUsing("use")`,
+    shortDescription:
+      "Building component-driven interfaces with rich interactions and reusable UI.",
     color: "#61dafb",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   },
-  [SkillNames.VUE]: {
-    id: 6,
-    name: "vue",
-    label: "Vue",
-    shortDescription:
-      "the chill pill for your frontend, it hits different! 🟢😌",
-    color: "#41b883",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
-  },
-  [SkillNames.NEXTJS]: {
-    id: 7,
-    name: "nextjs",
-    label: "Next.js",
-    shortDescription:
-      "the drama queen of front-end frameworks, and we stan! 👑📜",
-    color: "#fff",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-  },
-  [SkillNames.TAILWIND]: {
+
+  [SkillNames.SPRING_BOOT]: {
     id: 8,
-    name: "tailwind",
-    label: "Tailwind",
-    shortDescription: "utility classes hitting different fr fr 🌪️🔥",
-    color: "#38bdf8",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
+    name: "spring-boot",
+    label: "Spring Boot",
+    shortDescription:
+      "Building production-style Java backends, REST APIs, and distributed services.",
+    color: "#6db33f",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
   },
-  [SkillNames.NODEJS]: {
+
+  [SkillNames.DJANGO]: {
     id: 9,
+    name: "django",
+    label: "Django",
+    shortDescription:
+      "Python backend framework used for APIs, data processing, and rapid application development.",
+    color: "#092e20",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+  },
+
+  [SkillNames.FASTAPI]: {
+    id: 10,
+    name: "fastapi",
+    label: "FastAPI",
+    shortDescription:
+      "High-performance Python APIs with validation, authentication, and clean service boundaries.",
+    color: "#009688",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+  },
+
+  [SkillNames.NODEJS]: {
+    id: 11,
     name: "nodejs",
     label: "Node.js",
-    shortDescription: "JavaScript said 'sike, I'm backend now', deadass! 🔙🔚",
-    color: "#6cc24a",
+    shortDescription:
+      "JavaScript runtime for building APIs, services, and full-stack applications.",
+    color: "#339933",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   },
+
   [SkillNames.EXPRESS]: {
-    id: 10,
+    id: 12,
     name: "express",
-    label: "Express",
-    shortDescription: "middlewares go dummy hard, no cap! 🚂💨",
-    color: "#fff",
+    label: "Express.js",
+    shortDescription:
+      "Lightweight Node.js framework for building REST APIs and backend services.",
+    color: "#ffffff",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
   },
+
   [SkillNames.POSTGRES]: {
-    id: 11,
+    id: 13,
     name: "postgres",
     label: "PostgreSQL",
-    shortDescription: "SQL but make it fashion, purr 💅🐘",
-    color: "#336791",
+    shortDescription:
+      "Relational database used extensively for transactional and data-intensive systems.",
+    color: "#4169e1",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   },
+
+  [SkillNames.MYSQL]: {
+    id: 14,
+    name: "mysql",
+    label: "MySQL",
+    shortDescription:
+      "Relational database for structured application data and backend systems.",
+    color: "#4479a1",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  },
+
   [SkillNames.MONGODB]: {
-    id: 12,
+    id: 15,
     name: "mongodb",
     label: "MongoDB",
-    shortDescription: "flexin' with that NoSQL drip, respectfully! 💪🍃",
-    color: "#336791",
+    shortDescription:
+      "Document database used for flexible data models and MERN applications.",
+    color: "#47a248",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
   },
+
+  [SkillNames.SQLALCHEMY]: {
+    id: 16,
+    name: "sqlalchemy",
+    label: "SQLAlchemy",
+    shortDescription:
+      "Python ORM and SQL toolkit used for robust database access and persistence.",
+    color: "#d71f00",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg",
+  },
+
+  [SkillNames.JPA]: {
+    id: 17,
+    name: "jpa",
+    label: "JPA",
+    shortDescription:
+      "Java persistence abstraction used for transactional application data.",
+    color: "#59666c",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+  },
+
+  [SkillNames.HIBERNATE]: {
+    id: 18,
+    name: "hibernate",
+    label: "Hibernate",
+    shortDescription:
+      "ORM framework used to model and persist relational data in Java applications.",
+    color: "#59666c",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-original.svg",
+  },
+
   [SkillNames.GIT]: {
-    id: 13,
+    id: 19,
     name: "git",
     label: "Git",
-    shortDescription: "the code's personal bodyguard, no cap! 🕵️‍♂️🔄",
-    color: "#f1502f",
+    shortDescription:
+      "Version control for managing development workflows and collaborative projects.",
+    color: "#f05032",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
   },
+
   [SkillNames.GITHUB]: {
-    id: 14,
+    id: 20,
     name: "github",
     label: "GitHub",
-    shortDescription: "sliding into those pull requests, IYKYK! 🐙",
-    color: "#000000",
+    shortDescription:
+      "Code hosting, collaboration, version control, and open-source work.",
+    color: "#ffffff",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
   },
-  [SkillNames.PRETTIER]: {
-    id: 15,
-    name: "prettier",
-    label: "Prettier",
-    shortDescription: "making your code not a whole mess, thank u next 🧹✨",
-    color: "#f7b93a",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prettier/prettier-original.svg",
-  },
-  [SkillNames.NPM]: {
-    id: 16,
-    name: "npm",
-    label: "NPM",
-    shortDescription: "package manager said 'I gotchu fam', period! 📦💯",
-    color: "#fff",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
-  },
-  [SkillNames.FIREBASE]: {
-    id: 17,
-    name: "firebase",
-    label: "Firebase",
-    shortDescription:
-      "your app's ultimate wingman, but watch out, vendor lock-in vibes! 🔥👌",
-    color: "#ffca28",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-  },
-  [SkillNames.WORDPRESS]: {
-    id: 18,
-    name: "wordpress",
-    label: "WordPress",
-    shortDescription: "the grandpa of CMS, still rocking that cane 🧓👴",
-    color: "#007acc",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg",
-  },
+
   [SkillNames.LINUX]: {
-    id: 19,
+    id: 21,
     name: "linux",
     label: "Linux",
-    shortDescription: "where 'chmod 777' is the ultimate flex 🔓🙌",
-    color: "#fff",
+    shortDescription:
+      "Development environment and operating system fundamentals for backend engineering.",
+    color: "#fcc624",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
   },
+
+  [SkillNames.MAVEN]: {
+    id: 22,
+    name: "maven",
+    label: "Maven",
+    shortDescription:
+      "Build and dependency management for Java applications.",
+    color: "#c71a36",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg",
+  },
+
   [SkillNames.DOCKER]: {
-    id: 20,
+    id: 23,
     name: "docker",
     label: "Docker",
-    shortDescription: "The best containerization! 🐳🔥",
+    shortDescription:
+      "Containerizing applications and creating reproducible development environments.",
     color: "#2496ed",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
   },
-  [SkillNames.NGINX]: {
-    id: 21,
-    name: "nginx",
-    label: "NginX",
-    shortDescription: "reverse proxy go zoom zoom, sheesh! 🚗💨",
-    color: "#008000",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
-  },
-  [SkillNames.AWS]: {
-    id: 22,
-    name: "aws",
-    label: "AWS",
-    shortDescription:
-      "always extra, making everything more complicated, period! 🌐👨‍💻",
-    color: "#ff9900",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original.svg",
-  },
-  [SkillNames.GCP]: {
-    id: 25,
-    name: "gcp",
-    label: "Google Cloud",
-    shortDescription:
-      "cloud computing but make it Google vibes, living rent free! ☁️🔥",
-    color: "#4285f4",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
-  },
-  [SkillNames.VIM]: {
-    id: 23,
-    name: "vim",
-    label: "Vim",
-    shortDescription: "exit? In this economy? Ight, imma head out! 🚪🏃",
-    color: "#e34c26",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vim/vim-original.svg",
-  },
-  [SkillNames.VERCEL]: {
+
+  [SkillNames.POSTMAN]: {
     id: 24,
-    name: "vercel",
-    label: "Vercel",
+    name: "postman",
+    label: "Postman",
     shortDescription:
-      "The triangle compony, helps you deploy and go touch grass! 🚀🌿",
-    color: "#6cc24a",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+      "API development, testing, and debugging.",
+    color: "#ff6c37",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+  },
+
+  [SkillNames.FIREBASE]: {
+    id: 25,
+    name: "firebase",
+    label: "Firebase",
+    shortDescription:
+      "Authentication and application services used in full-stack projects.",
+    color: "#ffca28",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+  },
+
+  [SkillNames.LANGGRAPH]: {
+    id: 26,
+    name: "langgraph",
+    label: "LangGraph",
+    shortDescription:
+      "Building stateful, multi-step AI agent workflows and orchestration.",
+    color: "#7c3aed",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+
+  [SkillNames.AI_ML]: {
+    id: 27,
+    name: "ai-ml",
+    label: "AI / ML",
+    shortDescription:
+      "Applied AI and machine learning for intelligent workflows and data-driven applications.",
+    color: "#06b6d4",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
   },
 };
 
@@ -259,65 +323,35 @@ export const EXPERIENCE: Experience[] = [
   {
     id: 1,
     startDate: "Dec 2024",
-    endDate: "Present",
-    title: "Full Stack Developer",
-    company: "OmniNexus Sdn Bhd",
+    endDate: "Jan 2025",
+    title: "AI & ML Intern",
+    company: "Passion Infotech · Pune",
     description: [
-      "Built a custom image editor from scratch, cutting $4.8k/year in SaaS costs.",
-      "Architected async job queues processing 1k+ AI tasks daily with bulletproof reliability.",
-      "Optimized media delivery pipeline, slashing asset load times by 40%.",
-      "Shipped high-impact features end-to-end from requirements to production.",
+      "Developed Journalist Risk Guardian, a Django/Python backend for location-based journalist risk analysis using PostgreSQL, REST APIs, and GIS APIs.",
+      "Built data ingestion pipelines to collect, clean, normalize, and persist external event datasets for downstream analysis.",
+      "Implemented rule-based and AI-assisted risk scoring workflows that transformed geospatial and event data into location-level threat classifications.",
+      "Developed REST APIs for journalist profiles, alerts, risk analysis, and safe route management.",
+      "Integrated GIS APIs and background processing to automate geospatial analysis while separating processing workloads from request handling.",
     ],
     skills: [
-      SkillNames.NEXTJS,
-      SkillNames.TS,
-      SkillNames.REACT,
-      SkillNames.NODEJS,
+      SkillNames.PYTHON,
+      SkillNames.DJANGO,
       SkillNames.POSTGRES,
-      SkillNames.MONGODB,
-      SkillNames.DOCKER,
-      SkillNames.GCP,
-    ],
-  },
-  {
-    id: 2,
-    startDate: "Apr 2022",
-    endDate: "Dec 2024",
-    title: "Freelance Full Stack Developer",
-    company: "Self-employed",
-    description: [
-      "Transformed chaotic Excel sheets into polished internal tools for various clients.",
-      "Shipped dashboards and custom CMS platforms tailored to each client's workflow.",
-      "Automated repetitive processes, improving efficiency and reducing human error.",
-      "Focused on clean, maintainable code and interfaces that users actually enjoy.",
-    ],
-    skills: [
-      SkillNames.REACT,
-      SkillNames.VUE,
-      SkillNames.NODEJS,
-      SkillNames.EXPRESS,
-      SkillNames.MONGODB,
-      SkillNames.POSTGRES,
-      SkillNames.TAILWIND,
-      SkillNames.WORDPRESS,
+      SkillNames.AI_ML,
+      SkillNames.LINUX,
     ],
   },
 ];
 
 export const themeDisclaimers = {
   light: [
-    "Warning: Light mode emits a gazillion lumens of pure radiance!",
-    "Caution: Light mode ahead! Please don't try this at home.",
-    "Only trained professionals can handle this much brightness. Proceed with sunglasses!",
-    "Brace yourself! Light mode is about to make everything shine brighter than your future.",
-    "Flipping the switch to light mode... Are you sure your eyes are ready for this?",
+    "Light mode enabled. Clean, bright, and ready to explore.",
+    "Welcome to the brighter side.",
+    "A little extra brightness never hurt a good interface.",
   ],
   dark: [
-    "Light mode? I thought you went insane... but welcome back to the dark side!",
-    "Switching to dark mode... How was life on the bright side?",
-    "Dark mode activated! Thanks you from the bottom of my heart, and my eyes too.",
-    "Welcome back to the shadows. How was life out there in the light?",
-    "Dark mode on! Finally, someone who understands true sophistication.",
+    "Dark mode activated. Welcome to the portfolio.",
+    "The dark side looks better anyway.",
+    "Systems online. Explore away.",
   ],
 };
-

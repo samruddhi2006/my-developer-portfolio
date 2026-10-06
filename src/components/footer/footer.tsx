@@ -1,13 +1,12 @@
-import React, { Suspense } from "react";
-import Link from "next/link";
-import { footer } from "./config";
-import { Button } from "../ui/button";
-import SocialMediaButtons from "../social/social-media-icons";
 import { config } from "@/data/config";
+import Link from "next/link";
+import { Suspense } from "react";
+import SocialMediaButtons from "../social/social-media-icons";
+import { Button } from "../ui/button";
+import { footer } from "./config";
 
-async function CopyrightYear() {
-  const year = new Date().getFullYear();
-  return <>{year}</>;
+export function CopyrightYear() {
+  return <>{new Date().getFullYear()}</>;
 }
 
 function Footer() {
