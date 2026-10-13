@@ -1,13 +1,12 @@
-import { EmailTemplate } from "@/components/email-template";
-import { config } from "@/data/config";
-import { Resend } from "resend";
 import { z } from "zod";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+
+// Apps Script cold starts can take a few seconds; bound the wait so a hung
+// upstream can't hold a serverless function past the platform timeout.
+const UPSTREAM_TIMEOUT_MS = 12000;
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -20,62 +19,121 @@ function isRateLimited(ip: string): boolean {
   return entry.count > RATE_LIMIT_MAX;
 }
 
-const Email = z.object({
-  fullName: z.string().min(2, "Full name is invalid!"),
-  email: z.string().email({ message: "Email is invalid!" }),
-  message: z.string().min(10, "Message is too short!"),
+const ContactSubmission = z.object({
+  fullName: z
+    .string()
+    .min(2, "Full name is invalid!")
+    .max(100, "Full name is too long!"),
+  email: z
+    .string()
+    .email({ message: "Email is invalid!" })
+    .max(254, "Email is too long!"),
+  message: z
+    .string()
+    .min(10, "Message is too short!")
+    .max(5000, "Message is too long!"),
+  // Honeypot — real users leave it blank, bots tend to fill it.
+  website: z.string().max(200).optional().default(""),
 });
+
 export async function POST(req: Request) {
   try {
-    if (!process.env.RESEND_API_KEY) {
+    const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
+    if (!scriptUrl) {
       return Response.json(
-        { error: "Email service is not configured yet. Please email me directly instead." },
+        {
+          error:
+            "Message service is not configured yet. Please email me directly instead.",
+        },
         { status: 500 }
       );
     }
 
     const ip = req.headers.get("x-forwarded-for") ?? "unknown";
     if (isRateLimited(ip)) {
-      return Response.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+      return Response.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
     }
 
-    const body = await req.json();
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return Response.json(
+        { error: "Invalid request. Please try again." },
+        { status: 400 }
+      );
+    }
+
     const {
       success: zodSuccess,
       data: zodData,
       error: zodError,
-    } = Email.safeParse(body);
+    } = ContactSubmission.safeParse(body);
     if (!zodSuccess)
       return Response.json({ error: zodError?.message }, { status: 400 });
 
-    // NOTE: Resend's shared onboarding@resend.dev sender only delivers to
-    // the Resend account's own email address. To receive mail at any other
-    // address, verify a custom domain and set RESEND_FROM to it, e.g.
-    // "Portfolio <contact@yourdomain.com>".
-    const { data: resendData, error: resendError } = await resend.emails.send({
-      from: process.env.RESEND_FROM || "Portfolio <onboarding@resend.dev>",
-      to: [config.email],
-      subject: "Contact me from portfolio",
-      react: EmailTemplate({
-        fullName: zodData.fullName,
-        email: zodData.email,
-        message: zodData.message,
-      }) as React.ReactElement,
-    });
+    // Fake success for honeypot fills so bots can't probe the endpoint.
+    if (zodData.website) {
+      return Response.json({ ok: true });
+    }
 
-    if (resendError) {
-      console.error("[contact] resend error:", resendError.message);
+    // Server-to-server POST: no CORS preflight, redirects followed, and the
+    // Apps Script deployment URL never reaches the browser.
+    let upstream: Response;
+    try {
+      upstream = await fetch(scriptUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: zodData.fullName,
+          email: zodData.email,
+          message: zodData.message,
+        }),
+        redirect: "follow",
+        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      });
+    } catch (fetchError) {
+      console.error("[contact] sheets upstream unreachable:", fetchError);
       return Response.json(
-        { error: `Email failed to send (${resendError.message}). Please email me directly instead.` },
-        { status: 500 }
+        {
+          error:
+            "Couldn't save your message right now. Please email me directly instead.",
+        },
+        { status: 502 }
       );
     }
 
-    return Response.json(resendData);
+    let result: { ok?: boolean } | null = null;
+    try {
+      result = (await upstream.json()) as { ok?: boolean };
+    } catch {
+      result = null;
+    }
+
+    // Apps Script always answers HTTP 200 — only its `ok` field confirms
+    // the row was written. Anything else is a failed submission.
+    if (!upstream.ok || !result || result.ok !== true) {
+      console.error("[contact] sheets rejected submission");
+      return Response.json(
+        {
+          error:
+            "Couldn't save your message right now. Please email me directly instead.",
+        },
+        { status: 502 }
+      );
+    }
+
+    return Response.json({ ok: true });
   } catch (error) {
     console.error("[contact] unexpected error:", error);
     return Response.json(
-      { error: "Something went wrong sending your message. Please email me directly instead." },
+      {
+        error:
+          "Something went wrong sending your message. Please email me directly instead.",
+      },
       { status: 500 }
     );
   }
