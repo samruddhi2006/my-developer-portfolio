@@ -29,11 +29,13 @@ const Frame = ({
   onZoom,
   priority,
   onImageLoad,
+  onImageError,
 }: {
   image: string;
   onZoom: () => void;
   priority?: boolean;
   onImageLoad?: () => void;
+  onImageError?: () => void;
 }) => (
   <motion.button
     type="button"
@@ -53,6 +55,7 @@ const Frame = ({
       height={1000}
       priority={priority}
       onLoad={onImageLoad}
+      onError={onImageError}
       sizes="(max-width: 768px) 100vw, 720px"
       className="block h-auto w-full"
     />
@@ -74,8 +77,12 @@ const Frame = ({
 
 const SlideShow = ({ images }: { images: string[] }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // Screenshots are added later — drop any that 404 so the carousel never
+  // shows broken slides; if none load, render nothing (text content remains).
+  const [failed, setFailed] = useState<readonly string[]>([]);
+  const visible = images.filter((img) => !failed.includes(img));
   const isOpen = selectedIndex !== null;
-  const multiple = images.length > 1;
+  const multiple = visible.length > 1;
   const splideRef = useRef<any>(null);
 
   // Next/Image loads asynchronously, so the slide's real height isn't known when
@@ -87,9 +94,9 @@ const SlideShow = ({ images }: { images: string[] }) => {
   const step = useCallback(
     (dir: number) =>
       setSelectedIndex((i) =>
-        i === null ? i : (i + dir + images.length) % images.length
+        i === null ? i : (i + dir + visible.length) % visible.length
       ),
-    [images.length]
+    [visible.length]
   );
 
   // Keyboard navigation while the zoom dialog is open.
@@ -102,6 +109,20 @@ const SlideShow = ({ images }: { images: string[] }) => {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, multiple, step]);
+
+  const markFailed = useCallback(
+    (img: string) =>
+      setFailed((prev) => (prev.includes(img) ? prev : [...prev, img])),
+    []
+  );
+
+  // Clamp a selection made before a late failure filtered the list.
+  const safeIndex =
+    selectedIndex !== null
+      ? Math.min(selectedIndex, visible.length - 1)
+      : null;
+
+  if (visible.length === 0) return null;
 
   return (
     <>
@@ -127,13 +148,14 @@ const SlideShow = ({ images }: { images: string[] }) => {
           }}
         >
           <SplideTrack>
-            {images.map((image, idx) => (
+            {visible.map((image, idx) => (
               <SplideSlide key={image}>
                 <Frame
                   image={image}
                   priority={idx === 0}
                   onZoom={() => setSelectedIndex(idx)}
                   onImageLoad={remeasure}
+                  onImageError={() => markFailed(image)}
                 />
               </SplideSlide>
             ))}
@@ -160,7 +182,12 @@ const SlideShow = ({ images }: { images: string[] }) => {
         </Splide>
       ) : (
         <div className="my-2">
-          <Frame image={images[0]} priority onZoom={() => setSelectedIndex(0)} />
+          <Frame
+            image={visible[0]}
+            priority
+            onZoom={() => setSelectedIndex(0)}
+            onImageError={() => markFailed(visible[0])}
+          />
         </div>
       )}
 
@@ -177,16 +204,16 @@ const SlideShow = ({ images }: { images: string[] }) => {
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
-                key={selectedIndex ?? "none"}
+                key={safeIndex ?? "none"}
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
                 onClick={(e) => e.stopPropagation()}
               >
-                {isOpen && (
+                {isOpen && safeIndex !== null && (
                   <Image
-                    src={images[selectedIndex]}
+                    src={visible[safeIndex]}
                     alt="Project screenshot"
                     width={1920}
                     height={1200}
@@ -222,7 +249,7 @@ const SlideShow = ({ images }: { images: string[] }) => {
                 </button>
 
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-white/15 bg-black/50 px-3 py-1 font-mono text-xs text-white/90 backdrop-blur-md">
-                  {(selectedIndex ?? 0) + 1} / {images.length}
+                  {(safeIndex ?? 0) + 1} / {visible.length}
                 </div>
               </>
             )}

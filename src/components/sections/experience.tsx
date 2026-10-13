@@ -1,4 +1,4 @@
-import { EXPERIENCE, SkillNames, SKILLS } from "@/data/constants";
+import { EDUCATION, EXPERIENCE, SkillNames, SKILLS } from "@/data/constants";
 import { SectionHeader } from "./section-header";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ExperienceSection = () => {
   return (
+    <>
     <SectionWrapper
+      id="experience"
       className="flex flex-col items-center justify-center min-h-[120vh] py-20"
     >
       <div className="w-full max-w-4xl px-4 md:px-8 mx-auto">
@@ -31,6 +33,68 @@ const ExperienceSection = () => {
         </div>
       </div>
     </SectionWrapper>
+
+    <SectionWrapper
+      id="education"
+      className="flex flex-col items-center justify-center py-20"
+    >
+      <div className="w-full max-w-4xl px-4 md:px-8 mx-auto">
+        <SectionHeader
+          id="education"
+          title="Education"
+          desc="Academic background."
+          className="relative top-auto mb-12 md:mb-20 mt-0"
+        />
+
+        <div className="flex flex-col gap-8 md:gap-12 relative">
+          {EDUCATION.map((edu, index) => (
+            <motion.div
+              key={edu.id}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.35,
+                delay: index * 0.1,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true, margin: "-50px" }}
+            >
+              <Card
+                className={cn(
+                  "bg-card text-card-foreground border-border",
+                  "hover:border-primary/20 transition-colors duration-300",
+                  "shadow-sm hover:shadow-md"
+                )}
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                    <div className="space-y-1">
+                      <CardTitle className="text-xl font-bold tracking-tight">
+                        {edu.degree}
+                      </CardTitle>
+                      <div className="text-base font-medium text-muted-foreground">
+                        {edu.school}
+                      </div>
+                    </div>
+                    <Badge variant="secondary" className="w-fit font-mono text-xs font-normal">
+                      {edu.startDate} - {edu.endDate}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <ul className="list-disc list-outside ml-4 space-y-2 text-base text-muted-foreground leading-relaxed">
+                    {edu.description.map((point, i) => (
+                      <li key={i}>{point}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </SectionWrapper>
+  </>
   );
 };
 
@@ -43,10 +107,10 @@ const ExperienceCard = ({
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.4,
+        duration: 0.35,
         delay: index * 0.1,
         ease: "easeOut",
       }}

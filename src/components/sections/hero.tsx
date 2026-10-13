@@ -11,7 +11,8 @@ import {
 import { usePreloader } from "../preloader";
 import { BlurIn, BoxReveal } from "../reveal-animations";
 import ScrollDownIcon from "../scroll-down-icon";
-import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
+import { SiGithub, SiLinkedin } from "react-icons/si";
+// To re-enable X/Twitter, re-add SiX to the import above.
 import { config } from "@/data/config";
 
 import SectionWrapper from "../ui/section-wrapper";
@@ -33,10 +34,10 @@ const HeroSection = () => {
           {!isLoading && (
             <div className="flex flex-col">
               <div>
-                <BlurIn delay={0.7}>
+                <BlurIn delay={0.35} duration={0.7}>
                   <p
                     className={cn(
-                      "md:self-start mt-4 font-medium text-md text-slate-500 dark:text-zinc-400",
+                      "md:self-start mt-4 font-medium text-md text-muted-foreground",
                       "cursor-default sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
                     )}
                   >
@@ -45,14 +46,16 @@ const HeroSection = () => {
                   </p>
                 </BlurIn>
 
-                <BlurIn delay={1}>
+                <BlurIn delay={0.5} duration={0.7}>
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
                       <h1
                         className={cn(
-                          "-ml-[6px] leading-none text-transparent text-slate-800 text-left",
+                          "-ml-[6px] leading-none text-left",
                           "font-bold text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
-                          "cursor-default text-edge-outline font-display "
+                          "cursor-default font-display",
+                          "text-foreground",
+                          "dark:bg-gradient-to-br dark:from-zinc-100 dark:via-zinc-100 dark:to-zinc-400 dark:bg-clip-text dark:text-transparent"
                         )}
                       >
                         {config.author.split(" ")[0]}
@@ -69,26 +72,26 @@ const HeroSection = () => {
                   </Tooltip>
                 </BlurIn>
                 {/* <div className="md:block hidden bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 w-screen h-px animate-fade-right animate-glow" /> */}
-                <BlurIn delay={1.2}>
+                <BlurIn delay={0.65} duration={0.7}>
                   <p
                     className={cn(
-                      "md:self-start md:mt-4 font-medium text-md text-slate-500 dark:text-zinc-400",
+                      "md:self-start md:mt-4 font-medium text-md text-muted-foreground",
                       "cursor-default sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
                     )}
                   >
-                    A Full Stack Web Developer
+                    A Backend Engineer · AI-Powered Systems
                   </p>
                 </BlurIn>
               </div>
               <div className="mt-8 flex flex-col gap-3 w-fit">
                 <Link
                   href={
-                    "https://drive.google.com/file/d/1MTSsUA8V7Po2AsNXT8kZ5sLOpzC8l7qm/view?usp=sharing"
+                    "https://drive.google.com/file/d/1Z1RdbpXD1DMbBH1YBF4apxpcwDaV7_E-/view?usp=drive_link"
                   }
                   target="_blank"
                   className="flex-1"
                 >
-                  <BoxReveal delay={2} width="100%" >
+                  <BoxReveal delay={1} width="100%" >
                     <Button className="flex items-center gap-2 w-full">
                       <File size={24} />
                       <p>Resume</p>
@@ -108,18 +111,22 @@ const HeroSection = () => {
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      <p>pls 🥹 🙏</p>
+                      <p>Let&apos;s connect</p>
                     </TooltipContent>
                   </Tooltip>
                   <div className="flex items-center h-full gap-2">
-                    <Link
-                      href={config.social.twitter}
-                      target="_blank"
-                    >
-                      <Button variant={"outline"}>
-                        <SiX size={24} />
-                      </Button>
-                    </Link>
+                    {/* X/Twitter — not provided, hidden. Uncomment when available.
+                    {config.social.twitter && (
+                      <Link
+                        href={config.social.twitter}
+                        target="_blank"
+                      >
+                        <Button variant={"outline"}>
+                          <SiX size={24} />
+                        </Button>
+                      </Link>
+                    )}
+                    */}
                     <Link
                       href={config.social.github}
                       target="_blank"

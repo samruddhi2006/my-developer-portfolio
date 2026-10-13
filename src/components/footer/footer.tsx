@@ -1,19 +1,18 @@
-import React, { Suspense } from "react";
-import Link from "next/link";
-import { footer } from "./config";
-import { Button } from "../ui/button";
-import SocialMediaButtons from "../social/social-media-icons";
 import { config } from "@/data/config";
+import Link from "next/link";
+import { Suspense } from "react";
+import SocialMediaButtons from "../social/social-media-icons";
+import { Button } from "../ui/button";
+import { footer } from "./config";
 
-async function CopyrightYear() {
-  const year = new Date().getFullYear();
-  return <>{year}</>;
+export function CopyrightYear() {
+  return <>{new Date().getFullYear()}</>;
 }
 
 function Footer() {
   return (
     <footer className="flex w-full shrink-0 flex-col items-center gap-2 border-t border-border px-4 py-6 sm:flex-row md:px-6 sm:justify-between">
-      <p className="text-xs text-gray-500 dark:text-gray-400">
+      <p className="text-xs text-muted-foreground">
         ©{" "}
         <Suspense fallback={null}>
           <CopyrightYear />
