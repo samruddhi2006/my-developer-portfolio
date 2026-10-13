@@ -38,14 +38,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <ResponsiveDialog>
         <ResponsiveDialogTrigger className="bg-transparent flex justify-center w-full">
           <div
-            className="group relative w-full max-w-[400px] h-auto rounded-lg overflow-hidden ring-1 ring-white/5"
-            style={{ aspectRatio: "3/2" }}
+            className="group relative w-full max-w-[400px] overflow-hidden rounded-xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB]/40 hover:shadow-[0_20px_50px_-20px_rgba(37,99,235,0.35)] dark:border-white/10 dark:bg-transparent dark:hover:border-white/20 dark:hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onFocus={() => setIsHovered(true)}
             onBlur={() => setIsHovered(false)}
           >
-            {/* `src` can be any aspect ratio (tall pages pan, normal ones fit);
+            {/* Preview renders nothing until the real screenshot file exists —
+                `src` can be any aspect ratio (tall pages pan, normal ones fit);
                 the wallpaper is an optional /assets/backgrounds/<id>.jpg. */}
             <ScrollingPreview
               src={project.src}
@@ -53,15 +53,17 @@ const ProjectCard = ({ project }: { project: Project }) => {
               bg={`/assets/backgrounds/${project.id}.jpg`}
               isHovered={isHovered}
             />
-            <div className="absolute w-full h-24 bottom-0 left-0 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-10">
-              <div className="flex flex-col h-full items-start justify-end p-4">
-                <div className="text-lg text-left [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
+            {/* Content footer */}
+            <div className="flex items-center justify-between gap-3 border-t border-slate-100 bg-white px-4 py-3 text-left dark:border-white/10 dark:bg-transparent">
+              <div className="min-w-0">
+                <div className="truncate text-[15px] font-semibold tracking-tight text-[#0F172A] dark:text-white">
                   {project.title}
                 </div>
-                <div className="text-xs bg-primary text-primary-foreground rounded-lg w-fit px-2">
+                <div className="mt-1.5 w-fit rounded-full bg-[#DBEAFE] px-2 py-0.5 text-[11px] font-medium text-[#1D4ED8] dark:bg-white/10 dark:text-zinc-300">
                   {project.category}
                 </div>
               </div>
+              <ArrowUpRight className="h-4 w-4 shrink-0 -translate-x-1 translate-y-1 text-[#2563EB] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 dark:text-white" />
             </div>
           </div>
         </ResponsiveDialogTrigger>

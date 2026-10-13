@@ -1,24 +1,24 @@
 const config = {
-  title: "Samruddhi Badgujar | Software Engineer",
+  title: "Samruddhi Badgujar | Backend & AI Engineer",
   description: {
-    long: "Explore the portfolio of Samruddhi Badgujar, a software engineer and final-year Information Technology student building reliable backend systems, full-stack applications, and intelligent AI-powered products.",
+    long: "Explore the portfolio of Samruddhi Badgujar, a backend and AI engineer and final-year Information Technology student at Bharati Vidyapeeth's College of Engineering for Women, Pune — building distributed systems with Java/Spring Boot and Python/FastAPI, and AI-agent products with LangGraph.",
     short:
-      "Portfolio of Samruddhi Badgujar, a software engineer building reliable systems, full-stack applications, and AI-powered products.",
+      "Portfolio of Samruddhi Badgujar, a backend and AI engineer building distributed systems and AI-powered products.",
   },
 
   keywords: [
     "Samruddhi Badgujar",
     "Samruddhi",
-    "software engineer",
-    "backend developer",
-    "full-stack developer",
+    "backend engineer",
+    "AI engineer",
     "Java developer",
     "Python developer",
     "Spring Boot",
-    "React",
     "FastAPI",
     "Django",
-    "AI",
+    "LangGraph",
+    "React",
+    "AI agents",
     "Machine Learning",
     "system design",
     "distributed systems",
@@ -26,7 +26,6 @@ const config = {
     "PostgreSQL",
     "MongoDB",
     "portfolio",
-    "Pune developer",
     "Information Technology",
   ],
 
@@ -49,11 +48,11 @@ const config = {
   },
 
   social: {
-    // TODO: Replace these placeholders with your actual profiles.
-    twitter: "",
+    // Not provided — hidden in UI. Uncomment and fill to enable.
+    twitter: undefined as string | undefined,
+    instagram: undefined as string | undefined,
+    facebook: undefined as string | undefined,
     linkedin: "https://www.linkedin.com/in/samruddhi10/",
-    instagram: "",
-    facebook: "",
     github: "https://github.com/samruddhi2006",
   },
 };

@@ -3,29 +3,35 @@ export enum SkillNames {
   PYTHON = "python",
   JAVASCRIPT = "javascript",
   TYPESCRIPT = "typescript",
+  C = "c",
+  CPP = "cpp",
   HTML = "html",
   CSS = "css",
-  REACT = "react",
   SPRING_BOOT = "spring-boot",
   DJANGO = "django",
   FASTAPI = "fastapi",
+  REACT = "react",
   NODEJS = "nodejs",
   EXPRESS = "express",
+  TAILWIND = "tailwind",
+  VITE = "vite",
   POSTGRES = "postgres",
   MYSQL = "mysql",
   MONGODB = "mongodb",
   SQLALCHEMY = "sqlalchemy",
   JPA = "jpa",
   HIBERNATE = "hibernate",
+  LANGGRAPH = "langgraph",
+  AI_ML = "ai-ml",
   GIT = "git",
   GITHUB = "github",
   LINUX = "linux",
   MAVEN = "maven",
   DOCKER = "docker",
   POSTMAN = "postman",
+  VSCODE = "vscode",
+  AWS = "aws",
   FIREBASE = "firebase",
-  LANGGRAPH = "langgraph",
-  AI_ML = "ai-ml",
 }
 
 export type Skill = {
@@ -37,7 +43,13 @@ export type Skill = {
   icon: string;
 };
 
+/**
+ * Order is intentional: languages → frameworks → data → AI → tools.
+ * It mirrors the résumé/GitHub stack priority and drives both the skills
+ * grid order and the staggered 3D keycap wave (see animated-background).
+ */
 export const SKILLS: Record<SkillNames, Skill> = {
+  // ---------- Languages (résumé + GitHub) ----------
   [SkillNames.JAVA]: {
     id: 1,
     name: "java",
@@ -78,6 +90,26 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   },
 
+  [SkillNames.C]: {
+    id: 28,
+    name: "c",
+    label: "C",
+    shortDescription:
+      "Foundation language from CS coursework — pointers, memory management, and DSA fundamentals.",
+    color: "#659ad2",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+  },
+
+  [SkillNames.CPP]: {
+    id: 29,
+    name: "cpp",
+    label: "C++",
+    shortDescription:
+      "DSA and problem-solving language — STL for structured problem solving and LeetCode practice.",
+    color: "#00599c",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+  },
+
   [SkillNames.HTML]: {
     id: 5,
     name: "html",
@@ -98,16 +130,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
   },
 
-  [SkillNames.REACT]: {
-    id: 7,
-    name: "react",
-    label: "React",
-    shortDescription:
-      "Building component-driven interfaces with rich interactions and reusable UI.",
-    color: "#61dafb",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  },
-
+  // ---------- Frameworks & frontend tooling (résumé + GitHub) ----------
   [SkillNames.SPRING_BOOT]: {
     id: 8,
     name: "spring-boot",
@@ -138,6 +161,16 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
   },
 
+  [SkillNames.REACT]: {
+    id: 7,
+    name: "react",
+    label: "React",
+    shortDescription:
+      "Building component-driven interfaces with rich interactions and reusable UI.",
+    color: "#61dafb",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+
   [SkillNames.NODEJS]: {
     id: 11,
     name: "nodejs",
@@ -158,6 +191,27 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
   },
 
+  [SkillNames.TAILWIND]: {
+    id: 30,
+    name: "tailwind",
+    label: "Tailwind CSS",
+    shortDescription:
+      "Utility-first styling used across my React projects for rapid, responsive interfaces.",
+    color: "#38bdf8",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+  },
+
+  [SkillNames.VITE]: {
+    id: 31,
+    name: "vite",
+    label: "Vite",
+    shortDescription:
+      "Build tooling for fast React and TypeScript development.",
+    color: "#646cff",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+  },
+
+  // ---------- Databases & persistence (résumé + projects) ----------
   [SkillNames.POSTGRES]: {
     id: 13,
     name: "postgres",
@@ -218,6 +272,28 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-original.svg",
   },
 
+  // ---------- AI (projects) ----------
+  [SkillNames.LANGGRAPH]: {
+    id: 26,
+    name: "langgraph",
+    label: "LangGraph",
+    shortDescription:
+      "Building stateful, multi-step AI agent workflows and orchestration.",
+    color: "#7c3aed",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+
+  [SkillNames.AI_ML]: {
+    id: 27,
+    name: "ai-ml",
+    label: "AI / ML",
+    shortDescription:
+      "Applied AI and machine learning for intelligent workflows and data-driven applications.",
+    color: "#06b6d4",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+
+  // ---------- Tools & platforms (résumé + GitHub) ----------
   [SkillNames.GIT]: {
     id: 19,
     name: "git",
@@ -278,6 +354,26 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
   },
 
+  [SkillNames.VSCODE]: {
+    id: 32,
+    name: "vscode",
+    label: "VS Code",
+    shortDescription:
+      "Daily driver for backend, frontend, and AI project development.",
+    color: "#007acc",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+  },
+
+  [SkillNames.AWS]: {
+    id: 33,
+    name: "aws",
+    label: "AWS",
+    shortDescription:
+      "Cloud fundamentals for deploying and hosting backend services.",
+    color: "#ff9900",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+  },
+
   [SkillNames.FIREBASE]: {
     id: 25,
     name: "firebase",
@@ -286,26 +382,6 @@ export const SKILLS: Record<SkillNames, Skill> = {
       "Authentication and application services used in full-stack projects.",
     color: "#ffca28",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-  },
-
-  [SkillNames.LANGGRAPH]: {
-    id: 26,
-    name: "langgraph",
-    label: "LangGraph",
-    shortDescription:
-      "Building stateful, multi-step AI agent workflows and orchestration.",
-    color: "#7c3aed",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-  },
-
-  [SkillNames.AI_ML]: {
-    id: 27,
-    name: "ai-ml",
-    label: "AI / ML",
-    shortDescription:
-      "Applied AI and machine learning for intelligent workflows and data-driven applications.",
-    color: "#06b6d4",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
   },
 };
 
@@ -343,11 +419,34 @@ export const EXPERIENCE: Experience[] = [
   },
 ];
 
+export type Education = {
+  id: number;
+  startDate: string;
+  endDate: string;
+  degree: string;
+  school: string;
+  description: string[];
+};
+
+export const EDUCATION: Education[] = [
+  {
+    id: 1,
+    startDate: "2023",
+    endDate: "2027",
+    degree: "B.E. Information Technology",
+    school: "Bharati Vidyapeeth's College of Engineering for Women, Pune",
+    description: [
+      "Final-year IT student with a strong foundation in computer science and hands-on project experience.",
+      "Core interests: backend engineering, distributed systems, REST API design, and AI-agent workflows.",
+    ],
+  },
+];
+
 export const themeDisclaimers = {
   light: [
-    "Light mode enabled. Clean, bright, and ready to explore.",
-    "Welcome to the brighter side.",
-    "A little extra brightness never hurt a good interface.",
+    "Light mode enabled — crisp, minimal, and glare-free.",
+    "A clean canvas for the work below.",
+    "Minimal light. Maximum focus.",
   ],
   dark: [
     "Dark mode activated. Welcome to the portfolio.",

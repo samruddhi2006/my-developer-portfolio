@@ -2,14 +2,13 @@
 
 import * as React from "react";
 
-const ENDPOINT = "https://nareshkhatri.dev/api/collect";
+// Reports the deployment hostname once per browser to our own collect
+// endpoint (same origin). No third-party beacon, no cross-site tracking.
+const ENDPOINT = "/api/collect";
 const KEY = "portfolio:site";
 
 const isLocal = (h: string) =>
-  h === "localhost" ||
-  h === "127.0.0.1" ||
-  h === "nareshkhatri.dev" ||
-  h.endsWith(".nareshkhatri.dev");
+  h === "localhost" || h === "127.0.0.1";
 
 // records the deployment hostname once per browser, so I know where builds run.
 export default function Analytics() {

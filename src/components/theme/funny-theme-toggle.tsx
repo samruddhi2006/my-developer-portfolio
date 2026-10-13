@@ -19,6 +19,24 @@ export default function FunnyThemeToggle({
   const { toast } = useToast();
   const ref = React.useRef<HTMLButtonElement>(null);
 
+  // Render a static placeholder until mounted: next-themes only knows the
+  // real theme on the client, and branching on it during SSR/hydration
+  // produces attribute mismatches (Radix dialog attrs on the toggle).
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  if (!mounted) {
+    return (
+      <Button
+        variant="outline"
+        size="icon"
+        className={cn("border-none bg-transparent", className)}
+        aria-label="Toggle theme"
+      >
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    );
+  }
+
   const toggleTheme = async (newTheme: string, event?: React.MouseEvent) => {
     // @ts-ignore
     if (!document.startViewTransition || !event) {

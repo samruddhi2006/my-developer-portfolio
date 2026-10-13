@@ -210,20 +210,21 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
     const start = () => {
       killSettle();
       killFloat();
-      Object.values(SKILLS)
-        .sort(() => Math.random() - 0.5)
-        .forEach((skill, idx) => {
+      // Definition order = résumé/GitHub stack priority (languages →
+      // frameworks → data → AI → tools), so the wave reads as a tour of
+      // the stack rather than random motion.
+      Object.values(SKILLS).forEach((skill, idx) => {
           const keycap = splineApp.findObjectByName(skill.name);
           if (!keycap) return;
           floatTweens.push(
             gsap.to(keycap.position, {
-              y: Math.random() * 200 + 200,
-              duration: Math.random() * 2 + 2,
-              delay: idx * 0.6,
+              y: Math.random() * 80 + 120,
+              duration: Math.random() * 0.8 + 1.6,
+              delay: idx * 0.35,
               repeat: -1,
               yoyo: true,
               yoyoEase: "none",
-              ease: "elastic.out(1,0.3)",
+              ease: "sine.inOut",
             })
           );
         });
@@ -239,8 +240,8 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
         settleTweens.push(
           gsap.to(keycap.position, {
             y: 0,
-            duration: 4,
-            ease: "elastic.out(1,0.7)",
+            duration: 2.2,
+            ease: "elastic.out(1,0.8)",
           })
         );
       });
@@ -296,8 +297,8 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
       keycap.visible = true;
       gsap.fromTo(
         keycap.position,
-        { y: 200 },
-        { y: 50, duration: 0.5, delay: 0.1, ease: "bounce.out" }
+        { y: 120 },
+        { y: 0, duration: 0.6, delay: 0.1, ease: "power3.out" }
       );
     });
   };
@@ -384,11 +385,11 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
     if (kbd) {
       rotateKeyboard = gsap.to(kbd.rotation, {
         y: Math.PI * 2 + kbd.rotation.y,
-        duration: 10,
+        duration: 16,
         repeat: -1,
         yoyo: true,
         yoyoEase: true,
-        ease: "back.inOut",
+        ease: "sine.inOut",
         delay: 2.5,
         paused: true, // Start paused
       });

@@ -3,7 +3,10 @@ import { motion } from "motion/react";
 import styles from "./style.module.scss";
 import { height } from "../anim";
 import Body from "./body/body";
-import Image from "./image/image";
+// Hover preview disabled until real menu thumbnails are provided — the old
+// files were someone else's screenshots. Re-enable by uncommenting the
+// <Image> usage below and adding your own /assets/nav-link-previews/*.png.
+// import Image from "./image/image";
 import MotionToggle from "@/components/motion-toggle";
 
 import { links } from "@/components/header/config";
@@ -44,10 +47,14 @@ const Index: React.FC<IndexProps> = ({ setIsActive }) => {
             setIsActive={setIsActive}
           />
         </div>
+        {/* Hover preview goes here when thumbnails exist (see import note).
+            Kept out for now: it overlapped the motion toggle and showed
+            stale screenshots.
         <Image
           src={links[selectedLink.index].thumbnail}
           isActive={selectedLink.isActive}
         />
+        */}
       </div>
       {/* Subtle reduced-motion control, tucked into the bottom-right of the menu.
           Stop propagation so toggling motion doesn't also close the menu. */}
