@@ -15,7 +15,7 @@ A jaw-dropping developer portfolio packed with interactive 3D animations, butter
 - **Space Theme** — Floating particles on a dark canvas for a cosmic vibe
 - **Light & Dark Mode** — Full theme support with cheeky disclaimer toasts
 - **Responsive** — Works across all screen sizes
-- **Contact Form** — Email delivery via Resend
+- **Contact Form** — Submissions stored in Google Sheets via Apps Script
 - **Analytics** _(optional)_ — Umami analytics integration
 
 ## 🛠️ Tech Stack
@@ -26,7 +26,7 @@ A jaw-dropping developer portfolio packed with interactive 3D animations, butter
 | **Styling** | Tailwind CSS, Shadcn UI, Aceternity UI |
 | **Animation** | GSAP, Framer Motion |
 | **3D** | Spline Runtime |
-| **Email** | Resend |
+| **Contact** | Google Sheets + Apps Script |
 | **Misc** | Lenis (smooth scroll), Zod, next-themes |
 
 ---
@@ -63,7 +63,7 @@ A jaw-dropping developer portfolio packed with interactive 3D animations, butter
 
     | Variable | Required | Description |
     |---|---|---|
-    | `RESEND_API_KEY` | Yes | API key from [Resend](https://resend.com) for the contact form |
+    | `GOOGLE_SCRIPT_URL` | Yes | Deployed Apps Script web app `/exec` URL for the contact form (see `docs/contact-form-sheets-setup.md`) |
     | `NEXT_PUBLIC_WS_URL` | No | WebSocket server URL for realtime features (cursors, chat, presence) |
     | `UMAMI_DOMAIN` | No | Umami analytics script URL |
     | `UMAMI_SITE_ID` | No | Umami website ID |

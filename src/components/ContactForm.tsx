@@ -11,9 +11,18 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Full name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  fullName: z
+    .string()
+    .min(2, "Full name must be at least 2 characters")
+    .max(100, "Full name must be at most 100 characters"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .max(254, "Email must be at most 254 characters"),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message must be at most 5000 characters"),
 });
 
 type FieldErrors = Partial<Record<keyof z.infer<typeof formSchema>, string>>;
@@ -24,6 +33,8 @@ const ContactForm = () => {
   const [message, setMessage] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = React.useState<FieldErrors>({});
+  // Honeypot — invisible to humans, read unchecked at submit time.
+  const honeypotRef = React.useRef<HTMLInputElement>(null);
 
   const { toast } = useToast();
   const router = useRouter();
@@ -48,7 +59,12 @@ const ContactForm = () => {
       const res = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, message }),
+        body: JSON.stringify({
+          fullName,
+          email,
+          message,
+          website: honeypotRef.current?.value ?? "",
+        }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -69,9 +85,13 @@ const ContactForm = () => {
         clearTimeout(timer);
       }, 1000);
     } catch (err) {
+      const description =
+        err instanceof Error && err.message
+          ? err.message
+          : "Something went wrong! Please try again.";
       toast({
         title: "Error",
-        description: "Something went wrong! Please try again.",
+        description,
         className: cn(
           "top-0 w-full flex justify-center fixed md:max-w-7xl md:top-4 md:right-4"
         ),
@@ -82,6 +102,17 @@ const ContactForm = () => {
   };
   return (
     <form className="min-w-7xl mx-auto sm:mt-4" onSubmit={handleSubmit} aria-busy={loading}>
+      {/* Spam honeypot — hidden from sighted users and assistive tech. */}
+      <input
+        ref={honeypotRef}
+        type="text"
+        name="website"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        placeholder="Leave this field blank"
+        className="absolute h-0 w-0 opacity-0"
+      />
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
         <LabelInputContainer>
           <Label htmlFor="fullname">Full name</Label>
