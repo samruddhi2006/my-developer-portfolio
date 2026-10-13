@@ -27,6 +27,13 @@ const Email = z.object({
 });
 export async function POST(req: Request) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return Response.json(
+        { error: "Email service is not configured yet. Please email me directly instead." },
+        { status: 500 }
+      );
+    }
+
     const ip = req.headers.get("x-forwarded-for") ?? "unknown";
     if (isRateLimited(ip)) {
       return Response.json({ error: "Too many requests. Please try again later." }, { status: 429 });
@@ -41,8 +48,12 @@ export async function POST(req: Request) {
     if (!zodSuccess)
       return Response.json({ error: zodError?.message }, { status: 400 });
 
+    // NOTE: Resend's shared onboarding@resend.dev sender only delivers to
+    // the Resend account's own email address. To receive mail at any other
+    // address, verify a custom domain and set RESEND_FROM to it, e.g.
+    // "Portfolio <contact@yourdomain.com>".
     const { data: resendData, error: resendError } = await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>",
+      from: process.env.RESEND_FROM || "Portfolio <onboarding@resend.dev>",
       to: [config.email],
       subject: "Contact me from portfolio",
       react: EmailTemplate({
@@ -53,11 +64,19 @@ export async function POST(req: Request) {
     });
 
     if (resendError) {
-      return Response.json({ error: "Failed to send email" }, { status: 500 });
+      console.error("[contact] resend error:", resendError.message);
+      return Response.json(
+        { error: `Email failed to send (${resendError.message}). Please email me directly instead.` },
+        { status: 500 }
+      );
     }
 
     return Response.json(resendData);
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    console.error("[contact] unexpected error:", error);
+    return Response.json(
+      { error: "Something went wrong sending your message. Please email me directly instead." },
+      { status: 500 }
+    );
   }
 }
